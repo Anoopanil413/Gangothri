@@ -1,4 +1,5 @@
 export default function authService(service) {
+    
     const encryptPassword = (password) => service.encryptPassword(password);
   
     const compare = (password, hashedPassword) =>

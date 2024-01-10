@@ -3,39 +3,50 @@ import user from '../../../entities/users.js'
 export default function addUser(
   username,
   password,
+  phone,
   email,
   role,
   createdAt,
-  userRepository,
-  authService
+  dbRepository,
+  mongoRepository
 ) {
 
     if (!username || !password || !email) {
     throw new Error('username, password and email fields cannot be empty');
   }
 
-  const newUser = user(
+
+  const newUser = new user(
     username,
-    authService.encryptPassword(password),
+    password,
     email,
+    phone,
     role,
     createdAt
   );
 
   console.log(newUser)
 
-  return userRepository
+  const userRepositoryDb = dbRepository
+  const mongoRepositoryDb = mongoRepository
+
+  
+
+  console.log("user repository",userRepositoryDb)
+  console.log("username",username)
+
+  return mongoRepositoryDb
     .findByProperty({ username })
     .then((userWithUsername) => {
       if (userWithUsername.length) {
         throw new Error(`User with username: ${username} already exists`);
       }
-      return userRepository.findByProperty({ email });
+      return mongoRepositoryDb.findByProperty({ email });
     })
     .then((userWithEmail) => {
       if (userWithEmail.length) {
         throw new Error(`User with email: ${email} already exists`);
       }
-      return userRepository.add(newUser);
+      return mongoRepositoryDb.add(newUser);
     });
 }

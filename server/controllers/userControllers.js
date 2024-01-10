@@ -1,27 +1,36 @@
-import addUser from '../application/usecases/user/add.js';
-import userRepositoryMongoDB from '../framework/database/mongoDB/repositories/userRepositoryMongoDb.js';
+import addUser from "../application/usecases/user/add.js";
 
 
+export default function userControllers(userDbRepository,userRepositoryMongoDB,authService){
 
+    const dbRepository = userRepositoryMongoDB();
+    const mongoRepository = userDbRepository()
+    const addNewUser = (req, res, next) => {
 
-export default function UserController() {
-    console.log("controllers working!!")
+        let { username, password, email, role, createdAt } = req.body;
 
-  let addNewUser = async (req, res, next) => {
-    console.log("addNewUser is working")
-    try {
-      const { username, password, email, role, createdAt } = req.body;
-      console.log("Controller - addNewUser details", username, password, email, role, createdAt);
+        const auth = authService()
+        const encryptPassword = auth.encryptPassword(password)
+        password = encryptPassword
 
-      const user = await addUser(username, password, email, role, createdAt,userRepositoryMongoDB);
-      res.status(201).json(user); 
-    } catch (error) {
-      console.error("Error in addNewUser:", error);
-      next(error);
-    }
-  };
+        console.log("encrypted pass-",encryptPassword)
 
-  return {
-    addNewUser,
-  };
+        console.log("dbrepository mongo", dbRepository)
+        addUser(
+          username,
+          email,
+          password,
+          role,
+          createdAt,
+          dbRepository,
+          mongoRepository
+        )
+          .then((user) => res.json(user))
+          .catch((error) => next(error));
+      };
+
+      return {
+        addNewUser
+      };
+
 }
