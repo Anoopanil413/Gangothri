@@ -7,10 +7,9 @@ export default function addUser(
   email,
   role,
   createdAt,
-  dbRepository,
-  mongoRepository
+  userRepository,
+  authService
 ) {
-
     if (!username || !password || !email) {
     throw new Error('username, password and email fields cannot be empty');
   }
@@ -18,35 +17,37 @@ export default function addUser(
 
   const newUser = new user(
     username,
-    password,
+    authService.encryptPassword(password),
     email,
     phone,
     role,
     createdAt
   );
 
-  console.log(newUser)
+  console.log(newUser,userRepository)
 
-  const userRepositoryDb = dbRepository
-  const mongoRepositoryDb = mongoRepository
+
+  return userRepository.add(newUser);
+
+
+ 
 
   
 
-  console.log("user repository",userRepositoryDb)
-  console.log("username",username)
+//   return mongoRepositoryDb
+//     .findByProperty({ username })
+//     .then((userWithUsername) => {
+//       if (userWithUsername.length) {
+//         throw new Error(`User with username: ${username} already exists`);
+//       }
+//       return mongoRepositoryDb.findByProperty({ email });
+//     })
+//     .then((userWithEmail) => {
+//       if (userWithEmail.length) {
+//         throw new Error(`User with email: ${email} already exists`);
+//       }
+//       return mongoRepositoryDb.add(newUser);
+//     });
 
-  return mongoRepositoryDb
-    .findByProperty({ username })
-    .then((userWithUsername) => {
-      if (userWithUsername.length) {
-        throw new Error(`User with username: ${username} already exists`);
-      }
-      return mongoRepositoryDb.findByProperty({ email });
-    })
-    .then((userWithEmail) => {
-      if (userWithEmail.length) {
-        throw new Error(`User with email: ${email} already exists`);
-      }
-      return mongoRepositoryDb.add(newUser);
-    });
+
 }

@@ -9,17 +9,19 @@ function omit(obj, ...props) {
 
 export default function userRepositoryMongoDB() {
 
-    const add = (userEntity) => {
+    const addUser = async(userEntity) => {
         const newUser = new UserModel({
             username: userEntity.getUserName(),
             password: userEntity.getPassword(),
+            phone:userEntity.getPhone(),
             email: userEntity.getEmail(),
             role: userEntity.getRole(),
             createdAt: new Date()
         });
-
-        return newUser.save();
+        console.log("user saving")
+        await newUser.save();
     };
+
 
     const findByProperty = (params) =>
         UserModel.find(omit(params, 'page', 'perPage'))
@@ -33,7 +35,7 @@ export default function userRepositoryMongoDB() {
 
 
     return {
-        add,
+        addUser,
         findByProperty,
         findById,
         countAll
