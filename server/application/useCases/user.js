@@ -6,9 +6,8 @@ export default function addUser(  username,
     email,
     phone,
     role,
-    createdAt,
     userRepository,
-    authService){
+    ){
 
         if (!username || !password || !email) {
             throw new Error('username, password and email fields cannot be empty');
@@ -19,9 +18,12 @@ export default function addUser(  username,
             password,
             email,
             phone,
-            role,
-            createdAt
+            role
+            
           );
+
+          console.log(newUser,userRepository)
+
 
           return userRepository.add(newUser);
 
