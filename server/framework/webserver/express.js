@@ -1,6 +1,7 @@
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import userRouter from '../routes/user.js';
 
 
 
@@ -34,5 +35,8 @@ export default function expressConfig(app){
 
     app.use(morgan(':method :host :status :res[content-length] - :response-time ms'))
 
+
+    // routes for each endpoint
+    app.use('/', userRouter);
 
 }
