@@ -8,14 +8,7 @@ export default function userControllers(userDbRepository, userRepoMongo, authSer
     const dbRepository = userDbRepository(userRepoMongo());
     const authService = authServiceInterface(authServiceImpl());
 
-    console.log("repo is here!", dbRepository)
-
-
-
     const addNewUser = (req, res, next) => {
-
-        console.log("req is commingssssssssss", req.body)
-
         const { username, password, phone, email, role, createdAt } = req.body;
         addUser(
             username,

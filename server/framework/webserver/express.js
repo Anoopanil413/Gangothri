@@ -2,6 +2,7 @@ import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import userRouter from './routes/user.js'
+import authRouter from './routes/auth.js'
 
 
 export default function expressConfig(app) {
@@ -9,6 +10,8 @@ export default function expressConfig(app) {
   app.use(express.json())
   // routes for each endpoint
   app.use('/api', userRouter)
+  app.use('/api',authRouter)
+  
   app.use(helmet())
 
   morgan.token('host', function (req, res) {
