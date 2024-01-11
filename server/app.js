@@ -22,3 +22,6 @@ mongoDbConnection(mongoose,config, {
   }).connectToMongo();
 
 
+
+
+export default app;
