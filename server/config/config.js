@@ -7,5 +7,5 @@ export default {
     mongo: {
       uri: 'mongodb://0.0.0.0:27017/Gangothri'
     },
-    jwtSecret: process.env.JWT_SECRET 
+    jwtSecret: process.env.JWT_SECRET || 'GangothriKey!!12'
   };
