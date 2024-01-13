@@ -18,8 +18,8 @@ export default function userRepositoryMongoDB() {
             role: userEntity.getRole(),
             createdAt: new Date()
         });
-        console.log("user saving")
-        await newUser.save();
+    const user =   await newUser.save();
+    return user
     };
 
 
@@ -32,12 +32,14 @@ export default function userRepositoryMongoDB() {
         UserModel.countDocuments(omit(params, 'page', 'perPage'));
 
     const findById = (id) => UserModel.findById(id).select('-password');
+    const findByIdAndUpdate =(id,field,fieldValue)=>UserModel.findByIdAndUpdate(id, { field:fieldValue  }, { new: true })
 
 
     return {
         addUser,
         findByProperty,
         findById,
-        countAll
+        countAll,
+        findByIdAndUpdate
     };
 }

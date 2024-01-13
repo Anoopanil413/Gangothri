@@ -5,7 +5,7 @@
 export default {
     port: process.env.PORT || 3000,
     mongo: {
-      uri: process.env.MONGO_URL || 'mongodb://localhost:27017/Gangothri'
+      uri: 'mongodb://0.0.0.0:27017/Gangothri'
     },
     jwtSecret: process.env.JWT_SECRET || 'GangothriKey!!12'
   };

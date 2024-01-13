@@ -1,11 +1,15 @@
+
 import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import userRouter from './routes/user.js'
 import authRouter from './routes/auth.js'
+import dotenv from 'dotenv';
 
 
 export default function expressConfig(app) {
+  dotenv.config();
+
 
   app.use(express.json())
   // routes for each endpoint
@@ -18,10 +22,13 @@ export default function expressConfig(app) {
     return req.hostname;
   });
 
+
   app.use((req, res, next) => {
+    console.log("hehehehehhehe",req)
     // Website you wish to allow to connect
     // res.setHeader('Access-Control-Allow-Origin', 'http://accepted-origin');
     // Request methods you wish to allow
+
     res.setHeader(
       'Access-Control-Allow-Methods',
       'GET, POST, OPTIONS, PUT, PATCH, DELETE'
