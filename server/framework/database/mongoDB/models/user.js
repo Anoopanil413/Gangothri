@@ -21,9 +21,17 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'admin','Teacher'],
+    enum: ['user', 'admin','teacher'],
     default: 'user',
   },
+  verified: {
+    type: Boolean,
+    required: true,
+    default: false
+},
+token:{
+  type: String,
+},
   createdAt: {
     type: Date,
     default: Date.now,

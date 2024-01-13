@@ -1,18 +1,15 @@
-<<<<<<< HEAD
-import express from 'express';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import userRoutes from "./routes/user.js"
-=======
+
 import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import userRouter from './routes/user.js'
 import authRouter from './routes/auth.js'
->>>>>>> a3bb25df88ddef2faf36c1941eeb905007e47554
+import dotenv from 'dotenv';
 
 
 export default function expressConfig(app) {
+  dotenv.config();
+
 
   app.use(express.json())
   // routes for each endpoint
@@ -25,18 +22,7 @@ export default function expressConfig(app) {
     return req.hostname;
   });
 
-<<<<<<< HEAD
-    // app.use(helmet())
-    app.use(express.json())
 
-    morgan.token('host', function(req, res) {
-        return req.hostname;
-        });
-      app.use("/api",userRoutes)
-      app.use(express.json())
-
-=======
->>>>>>> a3bb25df88ddef2faf36c1941eeb905007e47554
   app.use((req, res, next) => {
     console.log("hehehehehhehe",req)
     // Website you wish to allow to connect
