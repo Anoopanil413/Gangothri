@@ -32,13 +32,14 @@ export default function userControllers(userDbRepository, userRepoMongo, authSer
         const{id,token} = req.params
         verifyEmailToken( id,token,dbRepository,
             verifyService)
-            .then((res)=res.status(200).send(path.join(__dirname,'/server/public')))
+            .then((res)=res.status(200).send(path.join(__dirname,'/server/public/email.html')))
             .catch((error)=>next(error))
 
     }
 
     return {
-        addNewUser
+        addNewUser,
+        verifyMailToken
     };
 
 }
