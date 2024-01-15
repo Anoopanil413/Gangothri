@@ -22,7 +22,7 @@ const controller = userControllers(
 
 
 router.post('/register', controller.addNewUser)
-router.post("/:id/verify/:token",controller.verifyMailToken)
+router.get("/:id/verify/:token",controller.verifyMailToken)
 
 export default router
 
