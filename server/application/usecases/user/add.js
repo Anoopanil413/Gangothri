@@ -57,6 +57,9 @@ export default function addUser(
         const subject = "Hey there"
        const emailServ = await verifyService.sendMail(email,subject,generateEmailLink)
        const otp =  await verifyService.sendOtp(phone)
+       console.log(otp)
+       if(otp.response.status==200)userRepository
+       const msg = `Email sent to ${emailServ?.envelope?.to} and Otp ${otp.response.message}`
        
         
                /*==================================>>>><<<<<<==============================*/
@@ -69,7 +72,7 @@ export default function addUser(
 //     // Handle errors here
 //   });
                 
-        return {response,emailServ,otp}
+        return {response,msg}
     })
 
 

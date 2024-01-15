@@ -174,16 +174,19 @@ const createTransporter = async () => {
 sendUserOtp : async function (mobileNumber){
     try {
         const otp = Math.floor(100000 + Math.random() * 900000);
-        console.log("5555555555555555555555555555555555555555555",mobileNumber,process.env.FAST2SMS_API_KEY,otp)
-        const response = await axios.get('https://www.fast2sms.com/dev/bulk', {
-            params: {
+        const response = await axios.get('https://www.fast2sms.com/dev/bulkV2', {
+          params: {
             authorization: process.env.FAST2SMS_API_KEY,
-            variables_values: `Your OTP is ${otp}`,
             route: 'otp',
+            variables_values: otp,
+            flash:0,
             numbers: mobileNumber
+          },
+          headers: {
+            'Content-Type': 'application/json'
           }
         });
-        return response
+        return {response,otp}
         
     } catch (error) {
         console.log(error)
