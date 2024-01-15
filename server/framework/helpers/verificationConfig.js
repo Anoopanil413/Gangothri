@@ -68,6 +68,7 @@ const createTransporter = async () => {
 
         generateEMailToken :async function(userId){
             try {
+              console.log("checking ctual userid in generation",userId)
                 const verificationToken = jwt.sign(
                   { ID: userId },
                   process.env.USER_VERIFICATION_TOKEN_SECRET,
@@ -82,7 +83,7 @@ const createTransporter = async () => {
         },
         generateEmailLink:async function(userId,token){
             try {
-                const url = `${process.env.BASE_URL}api/user/${userId}/verify/${token}`;
+                const url = `${process.env.BASE_URL}api/${userId}/verify/${token}`;
                 return url
                 
             } catch (error) {

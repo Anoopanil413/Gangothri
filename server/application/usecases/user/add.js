@@ -9,7 +9,8 @@ export default function addUser(
             createdAt,
             userRepository,
             authService,
-            verifyService
+            verifyService,
+            otpRepository
 
 
 ) {
@@ -57,9 +58,11 @@ export default function addUser(
         const subject = "Hey there"
        const emailServ = await verifyService.sendMail(email,subject,generateEmailLink)
        const otp =  await verifyService.sendOtp(phone)
-       console.log(otp)
-       if(otp.response.status==200)userRepository
-       const msg = `Email sent to ${emailServ?.envelope?.to} and Otp ${otp.response.message}`
+    //    console.log(otp)
+       
+       if(otp.response.status!==200) throw new Error('Otp not generated, please resend Otp!')
+       await otpRepository.OtpAdd(userId,otp.otp)
+       const msg = `Email sent to ${emailServ?.envelope?.to} and Otp ${otp.response.data.message}, it expires in 5 minutes`
        
         
                /*==================================>>>><<<<<<==============================*/

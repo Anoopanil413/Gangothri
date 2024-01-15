@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const otpSchema = new mongoose.Schema({
   userId: {
@@ -26,5 +26,6 @@ otpSchema.statics.checkOtp = async function (userId, otp) {
 };
 
 otpSchema.index({ createdAt: 1 }, { expireAfterSeconds: 300 });
+const Otp = mongoose.model('Otp', otpSchema);
 
-module.exports = mongoose.model('Otp', otpSchema);
+export default Otp
