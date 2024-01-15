@@ -9,6 +9,7 @@ import verificationInterface from "../../../application/services/verification.js
 import OtpInterface from '../../../application/repositories/otpRepo.js'
 import OtpImpl from '../../database/mongoDB/repositories/otpRepo.js'
 import express from 'express'
+import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router()
 
@@ -28,6 +29,7 @@ const controller = userControllers(
 router.post('/register', controller.addNewUser)
 router.get("/:id/verify/:token",controller.verifyMailToken)
 router.get("/:id/verifyOtp/:otp",controller.verifyOtp)
+router.get('/user/:id',authMiddleware,controller.getUserById)
 
 export default router
 
