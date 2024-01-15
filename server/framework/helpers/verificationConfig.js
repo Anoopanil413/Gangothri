@@ -68,6 +68,7 @@ const createTransporter = async () => {
 
         generateEMailToken :async function(userId){
             try {
+              console.log("checking ctual userid in generation",userId)
                 const verificationToken = jwt.sign(
                   { ID: userId },
                   process.env.USER_VERIFICATION_TOKEN_SECRET,
@@ -82,7 +83,7 @@ const createTransporter = async () => {
         },
         generateEmailLink:async function(userId,token){
             try {
-                const url = `${process.env.BASE_URL}user/${userId}/verify/${token}`;
+                const url = `${process.env.BASE_URL}api/${userId}/verify/${token}`;
                 return url
                 
             } catch (error) {
@@ -148,7 +149,7 @@ const createTransporter = async () => {
         }
       });
         const info = await transporter.sendMail({
-          from: `curious1<${process.env.EMAIL_USER}>`, // sender address
+          from: `Gangithri${process.env.EMAIL_USER}>`, // sender address
           to: email, // list of receivers
           subject: subject?subject:"Hello ✔ welcome to *****", // Subject line
           text: text?text:"Hello !!", 
@@ -174,16 +175,19 @@ const createTransporter = async () => {
 sendUserOtp : async function (mobileNumber){
     try {
         const otp = Math.floor(100000 + Math.random() * 900000);
-        console.log("5555555555555555555555555555555555555555555",mobileNumber,process.env.FAST2SMS_API_KEY,otp)
-        const response = await axios.get('https://www.fast2sms.com/dev/bulk', {
-            params: {
+        const response = await axios.get('https://www.fast2sms.com/dev/bulkV2', {
+          params: {
             authorization: process.env.FAST2SMS_API_KEY,
-            variables_values: `Your OTP is ${otp}`,
             route: 'otp',
+            variables_values: otp,
+            flash:0,
             numbers: mobileNumber
+          },
+          headers: {
+            'Content-Type': 'application/json'
           }
         });
-        return response
+        return {response,otp}
         
     } catch (error) {
         console.log(error)

@@ -32,7 +32,7 @@ export default function userRepositoryMongoDB() {
         UserModel.countDocuments(omit(params, 'page', 'perPage'));
 
     const findById = (id) => UserModel.findById(id).select('-password');
-    const findByIdAndUpdate =(id,field,fieldValue)=>UserModel.findByIdAndUpdate(id, { field:fieldValue  }, { new: true })
+    const findByIdAndUpdate =(id,field,fieldValue)=>UserModel.findByIdAndUpdate(id, { verified:fieldValue  }, { new: true })
 
 
     return {

@@ -9,7 +9,8 @@ export default function addUser(
             createdAt,
             userRepository,
             authService,
-            verifyService
+            verifyService,
+            otpRepository
 
 
 ) {
@@ -50,19 +51,31 @@ export default function addUser(
 
         const response = await userRepository.add(newUser);
         const UserData = await userRepository.findByProperty({ email })
-        let emailServ
-        let otp
-        if(UserData){
-            const userId = UserData[0]._id
-            const generateEmailToken = await verifyService.generateVeriToken(userId)
-            const generateEmailLink = await verifyService.generateEmailLink(userId,generateEmailToken)
-            const subject = "Hey there"
-           const emailServ = await verifyService.sendMail(email,subject,generateEmailLink)
-           await userRepository.findByIdAndUpdate(userId,'token',generateEmailToken)
-           const otp =  await verifyService.sendOtp(phone)
-
-        }
-        return {response,emailServ,otp}
+        if(!UserData) throw new Error('User not created')
+        const userId = UserData[0]._id
+        const generateEmailToken = await verifyService.generateVeriToken(userId)
+        const generateEmailLink = await verifyService.generateEmailLink(userId,generateEmailToken)
+        const subject = "Hey there"
+       const emailServ = await verifyService.sendMail(email,subject,generateEmailLink)
+       const otp =  await verifyService.sendOtp(phone)
+    //    console.log(otp)
+       
+       if(otp.response.status!==200) throw new Error('Otp not generated, please resend Otp!')
+       await otpRepository.OtpAdd(userId,otp.otp)
+       const msg = `Email sent to ${emailServ?.envelope?.to} and Otp ${otp.response.data.message}, it expires in 5 minutes`
+       
+        
+               /*==================================>>>><<<<<<==============================*/
+               /*Use this below code once everything handled ie Otp and Email, such that */
+//                Promise.all([generateEmailToken, generateEmailLink, emailServ, otp])
+//   .then(() => {
+//     // Do something after all the promises have resolved
+//   })
+//   .catch((err) => {
+//     // Handle errors here
+//   });
+                
+        return {response,msg}
     })
 
 
