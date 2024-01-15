@@ -82,7 +82,7 @@ const createTransporter = async () => {
         },
         generateEmailLink:async function(userId,token){
             try {
-                const url = `${process.env.BASE_URL}user/${userId}/verify/${token}`;
+                const url = `${process.env.BASE_URL}api/user/${userId}/verify/${token}`;
                 return url
                 
             } catch (error) {
