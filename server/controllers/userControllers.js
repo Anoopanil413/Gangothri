@@ -1,4 +1,5 @@
 import addUser from "../application/usecases/user/add.js";
+import verifyEmailToken from "../application/useCases/user/verifyEmail.js";
 
 
 
@@ -26,6 +27,15 @@ export default function userControllers(userDbRepository, userRepoMongo, authSer
             .then((user) => res.status(201).json(user))
             .catch((error) => next(error));
     };
+
+    const verifyMailToken = (req,res,next)=>{
+        const{id,token} = req.params
+        verifyEmailToken( id,token,dbRepository,
+            verifyService)
+            .then((res)=res.status(200).send(path.join(__dirname,'/server/public')))
+            .catch((error)=>next(error))
+
+    }
 
     return {
         addNewUser

@@ -23,6 +23,10 @@ const UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  isVerified:{
+    type:Boolean,
+    default:false
+  },
   createdAt: Date
 });
 

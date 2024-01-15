@@ -148,7 +148,7 @@ const createTransporter = async () => {
         }
       });
         const info = await transporter.sendMail({
-          from: `curious1<${process.env.EMAIL_USER}>`, // sender address
+          from: `Gangithri${process.env.EMAIL_USER}>`, // sender address
           to: email, // list of receivers
           subject: subject?subject:"Hello ✔ welcome to *****", // Subject line
           text: text?text:"Hello !!", 
