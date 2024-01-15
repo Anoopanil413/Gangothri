@@ -1,6 +1,7 @@
 import addUser from "../application/usecases/user/add.js";
 import verifyEmailToken from "../application/useCases/user/verifyEmail.js";
 import verifyUserOtp from "../application/useCases/user/verifyOtp.js";
+import findById from "../application/useCases/user/findById.js";
 
  
 
@@ -51,10 +52,17 @@ export default function userControllers(userDbRepository, userRepoMongo, authSer
 
     }
 
+    const getUserById= (req,res,next)=>{
+        findById(req.params.id, dbRepository)
+      .then((user) => res.json(user))
+      .catch((error) => next(error)); 
+    }
+
     return {
         addNewUser,
         verifyMailToken,
-        verifyOtp
+        verifyOtp,
+        getUserById
     };
 
 }

@@ -16,11 +16,7 @@ export default function login(email, password, userRepository, authService) {
         error.statusCode = 401;
         throw error;
       }
-      const payload = {
-        user: {
-          id: user[0].id
-        }
-      };
+      const payload =user[0].id 
       return authService.generateToken(payload);
     });
   }

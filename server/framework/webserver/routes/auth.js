@@ -15,7 +15,7 @@ const router = express.Router();
     );
   
     // POST enpdpoints
-    router.route('/login').post(controller.loginUser);
+    router.post('/login',controller.loginUser)
   
    export  default router;
   

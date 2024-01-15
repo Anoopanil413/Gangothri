@@ -68,7 +68,6 @@ const createTransporter = async () => {
 
         generateEMailToken :async function(userId){
             try {
-              console.log("checking ctual userid in generation",userId)
                 const verificationToken = jwt.sign(
                   { ID: userId },
                   process.env.USER_VERIFICATION_TOKEN_SECRET,
