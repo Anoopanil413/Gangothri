@@ -4,6 +4,7 @@ import userDbRepositoryMongoDB from '../../database/mongoDB/repositories/userRep
 import authServiceInterface from '../../../application/services/authService.js'
 import authServiceImpl from '../../services/authService.js'
 import express from 'express';
+import errorHandlingMiddleware from '../middlewares/errorHandlingMiddleware.js'
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ const router = express.Router();
     );
   
     // POST enpdpoints
-    router.post('/login',controller.loginUser)
+    router.post('/login',controller.loginUser,errorHandlingMiddleware)
   
    export  default router;
   
