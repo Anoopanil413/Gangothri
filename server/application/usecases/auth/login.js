@@ -20,3 +20,5 @@ export default function login(email, password, userRepository, authService) {
       return authService.generateToken(payload);
     });
   }
+
+  console.log("simple herloo")
