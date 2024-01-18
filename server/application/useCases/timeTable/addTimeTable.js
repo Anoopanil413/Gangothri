@@ -19,6 +19,7 @@ export default async function addTimeTable(classId,week,tableRepo){
                     })
                     .catch((error)=>{
                         console.log(error)
+                        //heloo
                         return error
 
                     } )
