@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 
 const timeTable = new mongoose.Schema({
-    class:{
+    classId:{
         type:mongoose.Schema.Types.ObjectId,
         require:true
     },
