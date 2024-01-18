@@ -5,22 +5,26 @@ import morgan from 'morgan'
 import userRouter from './routes/user.js'
 import authRouter from './routes/auth.js'
 import dotenv from 'dotenv';
+import classRouter from './routes/class/class.js'
 
 
 export default function expressConfig(app) {
   dotenv.config();
+  app.use(helmet())
+  morgan.token('host', function (req, res) {
+    return req.hostname;
+  });
+
+
 
 
   app.use(express.json())
   // routes for each endpoint
   app.use('/api', userRouter)
   app.use('/api',authRouter)
+  app.use('/api/class',classRouter)
   
-  app.use(helmet())
 
-  morgan.token('host', function (req, res) {
-    return req.hostname;
-  });
 
 
   app.use((req, res, next) => {

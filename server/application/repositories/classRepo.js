@@ -1,7 +1,9 @@
 export default function classRepo(repository){
-    const addClass = repository.addClass(classEntity)
+    const addClass = (classEntity)=>repository.addClass(classEntity)
+    const findByProperty = (param)=>repository.findByProperty(param)
     return {
-        addClass
+        addClass,
+        findByProperty
     }
 
 }

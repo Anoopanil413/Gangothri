@@ -1,4 +1,4 @@
-import classes from '../../../entities/class'
+import classes from '../../../entities/class.js'
 
 
 export default function addClass(className,assigned,classRepository){
@@ -10,8 +10,10 @@ export default function addClass(className,assigned,classRepository){
         className,assigned
     )
 
-    // return classRepository.findByProperty({className})
-    //         .then((className)=>)
-
+    return classRepository.findByProperty({className})
+            .then((className)=>{
+                if(className.length)throw new Error("Class Already Available!")
+                return classRepository.addClass(newClass)
+            })
 
 }
