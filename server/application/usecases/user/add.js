@@ -18,7 +18,8 @@ export default function addUser(
         throw new Error('username, password and email fields cannot be empty');
     }
 
-    
+    // Heloooooooooooooooooooooo
+    console.log("simple herloo")
 
     const newUser = new user(
         username,
