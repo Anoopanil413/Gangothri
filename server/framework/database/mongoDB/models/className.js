@@ -7,6 +7,9 @@ const ClassName = new mongoose.Schema({
     },
     assigned:{
         type:mongoose.Schema.Types.ObjectId
+    },
+    TotalStudents :{
+        type: Number
     }
 })
 
