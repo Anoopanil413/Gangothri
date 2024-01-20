@@ -1,4 +1,4 @@
-import addUser from "../application/usecases/user/add.js";
+import addUser from "../application/useCases/user/add.js";
 import verifyEmailToken from "../application/useCases/user/verifyEmail.js";
 import verifyUserOtp from "../application/useCases/user/verifyOtp.js";
 import findById from "../application/useCases/user/findById.js";
