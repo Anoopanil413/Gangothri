@@ -22,4 +22,3 @@ export default function login(email, password, userRepository, authService) {
     });
   }
 
-  console.log("simple herloo")
